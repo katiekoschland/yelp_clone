@@ -54,8 +54,21 @@ feature 'restaurants' do
       click_link 'Homeslice'
       expect(page).to have_content 'Homeslice'
       expect(page).to have_content 'Best aubergine, cauliflower cheese and spinach pizza'
-      expect(current_path).to eq 'restaurants/1'
+      expect(current_path).to eq '/restaurants/1'
     end
+  end
+
+  context 'deleting restaurants' do
+
+    before{ Restaurant.create name: 'Itsu', description: 'Delicious salmon teriyaki' }
+
+    scenario 'removes a restaurant when a user clicks a delete link' do
+      visit '/restaurants'
+      click_link 'Delete Itsu'
+      expect(page).not_to have_content 'Itsu'
+      expect(page).to have_content 'Restaurant deleted successfully'
+    end
+
   end
 
 end
