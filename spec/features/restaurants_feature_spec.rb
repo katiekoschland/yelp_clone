@@ -42,5 +42,20 @@ feature 'restaurants' do
       expect(current_path).to eq "/restaurants/#{pret.id}"
     end
   end
-  
+
+  context 'editing restaurants' do
+    before { Restaurant.create name: 'Homeslice', description: 'Best aubergine, cauliflower cheese and spinach pizza', id:1 }
+    scenario 'let a user edit a restaurant' do
+      visit '/restaurants'
+      click_link 'Edit Homeslice'
+      fill_in 'Name', with: 'Homeslice'
+      fill_in 'Description', with: 'Best aubergine, cauliflower cheese and spinach pizza'
+      click_button 'Update Restaurant'
+      click_link 'Homeslice'
+      expect(page).to have_content 'Homeslice'
+      expect(page).to have_content 'Best aubergine, cauliflower cheese and spinach pizza'
+      expect(current_path).to eq 'restaurants/1'
+    end
+  end
+
 end
