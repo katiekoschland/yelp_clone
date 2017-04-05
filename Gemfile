@@ -45,6 +45,8 @@ group :development do
   gem 'spring'
 end
 
+gem 'devise'
+
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
